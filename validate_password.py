@@ -1,4 +1,6 @@
 # Question 1
+import string 
+
 def validate_password(password: str) -> bool:
     """
     STEP 1: Create a function that validates a password based on the following rules:
@@ -10,7 +12,41 @@ def validate_password(password: str) -> bool:
 
     TODO: Implement logic to check all these conditions and return True if valid, otherwise False.
     """
-    return False
+
+    length = False
+    upper_case = False
+    lower_case = False
+    digit = False
+    special_character = False
+
+    if not password:
+        raise ValueError
+    
+    if type(password) is not str:
+        raise TypeError
+    
+    if len(password) >= 8:
+        length = True
+
+    for char in password:
+        if char.isupper():
+            upper_case = True
+
+        if char.islower():
+            lower_case = True
+
+        if char.isdigit():
+            digit = True
+
+        if char in string.punctuation:
+            special_character = True
+    
+    if length == True and lower_case == True and upper_case == True and digit == True and special_character == True:
+        results = True
+    else:
+        results = False
+    
+    return results
 
 
 # Question 2
@@ -27,4 +63,16 @@ def password_strength(password: str) -> str:
     TODO: Implement the function to return one of these three strings.
     """
 
-    return ""
+    checker = validate_password(password)
+
+    if checker == True:
+        return "Strong"
+    elif len(password) >= 8 and checker == False:
+        return "Moderate"
+    elif checker == False:
+        return "Weak"
+    
+print(password_strength("WT2!a"))
+print(validate_password("WT2!a"))
+    
+
